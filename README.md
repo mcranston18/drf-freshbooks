@@ -1,6 +1,6 @@
 # Freshclone
 
-The purpose of this project is to build a REST API using Django Rest Framework. I am modeling the project off of [Freshbooks](https://www.freshbooks.com/).
+The purpose of this project is to build a REST API using Django Rest Framework modelled off of [Freshbooks](https://www.freshbooks.com/).
 
 ## Installation
 
