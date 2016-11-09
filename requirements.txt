@@ -9,3 +9,4 @@ python3-openid==3.0.10
 requests==2.11.1
 requests-oauthlib==0.7.0
 six==1.10.0
+django-oauth-toolkit==0.10.0
