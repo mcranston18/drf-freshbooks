@@ -1,11 +1,17 @@
 from django.conf.urls import url, include
 from django.contrib import admin
+from rest_framework_swagger.views import get_swagger_view
+
+schema_view = get_swagger_view(title='Freshclone API')
 admin.autodiscover()
 
 from freshclone.routers import router
+
+BASE_API_URL = 'api/v1'
 
 urlpatterns = [
     url(r'^api/v1/', include(router.urls)),
     url(r'^o/', include('oauth2_provider.urls', namespace='oauth2_provider')),
     url(r'^admin/', admin.site.urls),
+    url(r'^api/v1/docs/', schema_view)
 ]
