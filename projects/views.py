@@ -7,6 +7,12 @@ from projects.serializers import ProjectSerializer
 
 
 class ProjectViewSet(ModelViewSet):
-    # queryset = Project.objects.all()
     serializer_class = ProjectSerializer
-    queryset = Project.objects.all()
+
+    def get_queryset(self):
+        queryset = Project.objects.filter(
+            client__user__id=self.request.user.id
+        )
+
+        return queryset
+
