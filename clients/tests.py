@@ -4,13 +4,11 @@ from django.contrib.auth import get_user_model
 from model_mommy import mommy
 from rest_framework.test import APITestCase, APIClient
 
-from clients.models import Client
-
 
 class APITests(APITestCase):
     def setUp(self):
         self.user = mommy.make('User')
-        # self.other_user = mommy.make('User')
+        self.other_user = mommy.make('User')
 
         self.sample_client_object = mommy.make(
             'Client',
@@ -18,11 +16,11 @@ class APITests(APITestCase):
             user=self.user,
         )
 
-        # other_client = mommy.make(
-        #     'Client',
-        #     name='Test Person',
-        #     user=self.other_user,
-        # )
+        other_client = mommy.make(
+            'Client',
+            name='Test Person',
+            user=self.other_user,
+        )
 
         self.client_data = {
             'name': 'other test person',
@@ -34,11 +32,11 @@ class APITests(APITestCase):
         self.authenticated_client = APIClient()
         self.authenticated_client.force_authenticate(user=self.user)
 
-    def test_get_client_returns_200(self):
+    def test_get_clients_returns_200(self):
         response = self.authenticated_client.get(reverse('client-list'))
         self.assertEqual(response.status_code, 200)
 
-    def test_get_clients_returns_200(self):
+    def test_get_client_returns_200(self):
         response = self.authenticated_client.get(
             reverse(
                 'client-detail',
@@ -50,7 +48,9 @@ class APITests(APITestCase):
     def test_get_clients_returns_own_data(self):
         response = self.authenticated_client.get(reverse('client-list'))
         clients = response.json()
-        self.assertEqual(len(clients), 1)
+
+        for client in clients:
+            self.assertEqual(client['id'], self.user.id)
 
     def test_post_clients_returns_data(self):
         response = self.authenticated_client.post(
