@@ -52,7 +52,7 @@ class APITests(APITestCase):
         for client in clients:
             self.assertEqual(client['id'], self.user.id)
 
-    def test_post_clients_returns_data(self):
+    def test_post_clientss_returns_201(self):
         response = self.authenticated_client.post(
             reverse('client-list'),
             data=self.client_data
@@ -60,7 +60,7 @@ class APITests(APITestCase):
 
         self.assertEqual(response.status_code, 201)
 
-    def test_unauthenticated_client_cant_post_data(self):
+    def test_post_clients_returns_403_if_unauthenticated(self):
         response = self.client.post(
             reverse('client-list'),
             data=self.client_data
@@ -68,11 +68,11 @@ class APITests(APITestCase):
 
         self.assertEqual(response.status_code, 403)
 
-    def test_unauthenticated_client_cant_get_one(self):
+    def test_get_clients_returns_200_if_unauthenticated(self):
         response = self.client.get(reverse('client-list'))
         self.assertEqual(response.status_code, 403)
 
-    def test_unauthenticated_client_cant_get_list(self):
+    def test_get_client_returns_200_if_unauthenticated(self):
         response = self.client.get(reverse('client-detail', kwargs={'pk': 1}))
         self.assertEqual(response.status_code, 403)
 
