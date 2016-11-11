@@ -14,6 +14,18 @@ class UserListSerializer(serializers.ModelSerializer):
 class UserDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
+        fields = [
+            'username',
+            'first_name',
+            'last_name',
+            'id',
+            'email',
+        ]
+
+
+class UserOwnerSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
         fields = '__all__'
 
 
