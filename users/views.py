@@ -17,11 +17,15 @@ class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = serializers.UserDetailSerializer
 
-    # def retrieve(self, request, pk=None):
-    #     queryset = self.get_queryset()
-    #     user = get_object_or_404(queryset, pk=pk)
-    #     serializer = serializers.UserDetailSerializer(user)
-    #     return Response(serializer.data)
+    def retrieve(self, request, pk=None):
+        queryset = self.get_queryset()
+        user = get_object_or_404(queryset, pk=pk)
+        serializer = self.serializer_class(user)
+
+        if request.user == user:
+            serializer = serializers.UserOwnerSerializer(user)
+
+        return Response(serializer.data)
 
     def list(self, request):
         queryset = self.get_queryset()
