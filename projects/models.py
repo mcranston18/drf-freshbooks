@@ -15,6 +15,7 @@ class Project(models.Model):
     description = models.CharField(max_length=30)
     start_date = models.DateField()
     status = models.CharField(max_length=10, choices=STATUS_CHOICES)
+    budget = models.IntegerField()
 
     def __str__(self):
         return self.title
