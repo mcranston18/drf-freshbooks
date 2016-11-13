@@ -22,6 +22,7 @@ class APITests(APITestCase):
         )
 
         self.project_data = {
+            'budget': 1000,
             'client': sample_client_object.id,
             'title': 'some title',
             'description': 'description',

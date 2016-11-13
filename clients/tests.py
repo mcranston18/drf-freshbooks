@@ -12,13 +12,15 @@ class APITests(APITestCase):
 
         self.sample_client_object = mommy.make(
             'Client',
-            name='Test Person',
+            name='Test Client',
+            client_type='small',
             user=self.user,
         )
 
         other_client = mommy.make(
             'Client',
-            name='Test Person',
+            name='Other Test Client',
+            client_type='startup',
             user=self.other_user,
         )
 
@@ -52,7 +54,27 @@ class APITests(APITestCase):
         for client in clients:
             self.assertEqual(client['id'], self.user.id)
 
-    def test_post_clientss_returns_201(self):
+    def test_get_clients_filter_by_name(self):
+        name = 'Other Test Client'
+        response = self.authenticated_client.get(
+            reverse('client-list') + '?name=' + name
+        )
+        clients = response.json()
+
+        for client in clients:
+            self.assertEqual(client['name'], name)
+
+    def test_get_clients_filter_by_client_type(self):
+        client_type = 'small'
+        response = self.authenticated_client.get(
+            reverse('client-list') + '?client_type=' + client_type
+        )
+        clients = response.json()
+
+        for client in clients:
+            self.assertEqual(client['client_type'], client_type)
+
+    def test_post_clients_returns_201(self):
         response = self.authenticated_client.post(
             reverse('client-list'),
             data=self.client_data
