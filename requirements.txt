@@ -12,3 +12,4 @@ ipdb==0.10.1
 model-mommy==1.2.6
 django-rest-swagger==2.1.0
 django-filter
+drf-extensions

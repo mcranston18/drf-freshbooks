@@ -1,7 +1,8 @@
+from rest_framework_extensions.mixins import NestedViewSetMixin
 from rest_framework.viewsets import ModelViewSet
 
-from clients.models import Client
-from clients.serializers import ClientSerializer
+from clients.models import Client, ClientContact
+from clients.serializers import ClientSerializer, ClientContactSerializer
 
 
 class ClientViewSet(ModelViewSet):
@@ -14,3 +15,8 @@ class ClientViewSet(ModelViewSet):
         )
 
         return queryset
+
+
+class ClientContactsViewSet(NestedViewSetMixin, ModelViewSet):
+    serializer_class = ClientContactSerializer
+    queryset = ClientContact.objects.all()
