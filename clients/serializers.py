@@ -11,7 +11,8 @@ class ClientContactSerializer(ModelSerializer):
 
 class ClientSerializer(ModelSerializer):
     contacts = ClientContactSerializer(
-        many=True
+        many=True,
+        read_only=True,
     )
 
     class Meta:
