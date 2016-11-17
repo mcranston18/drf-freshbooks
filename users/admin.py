@@ -6,11 +6,10 @@ User = get_user_model()
 
 
 class CustomUserAdmin(UserAdmin):
-    def __init__(self, *args, **kwargs):
-        super(CustomUserAdmin, self).__init__(*args, **kwargs)
-        self.list_display = list(UserAdmin.list_display) + [
-            'favourite_colour'
-        ]
+    model = User
 
+    fieldsets = UserAdmin.fieldsets + (
+            (None, {'fields': ('favourite_colour',)}),
+    )
 
 admin.site.register(User, CustomUserAdmin)
