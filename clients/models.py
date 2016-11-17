@@ -24,4 +24,4 @@ class ClientContact(models.Model):
     email = models.EmailField(
         help_text='The e-mail of the contact associated with the client',
     )
-    client = models.ForeignKey(Client)
+    client = models.ForeignKey(Client, related_name='contacts')
