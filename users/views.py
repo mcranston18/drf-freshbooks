@@ -1,4 +1,4 @@
-from django.contrib.auth.models import User, Group
+from django.contrib.auth import get_user_model
 from django.shortcuts import get_object_or_404
 
 from rest_framework import permissions, viewsets
@@ -10,6 +10,8 @@ from oauth2_provider.ext.rest_framework import (
 )
 
 from . import serializers
+
+User = get_user_model()
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -32,9 +34,3 @@ class UserViewSet(viewsets.ModelViewSet):
         serializer = serializers.UserListSerializer(queryset, many=True)
         return Response(serializer.data)
 
-
-class GroupViewSet(viewsets.ModelViewSet):
-    permission_classes = [permissions.IsAuthenticated, TokenHasScope]
-    required_scopes = ['groups']
-    queryset = Group.objects.all()
-    serializer_class = serializers.GroupSerializer
