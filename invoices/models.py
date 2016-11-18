@@ -7,7 +7,7 @@ from projects.models import Project
 class Invoice(models.Model):
     name = models.CharField(max_length=500)
     client = models.ForeignKey(Client)
-    project = models.ManyToManyField(
+    projects = models.ManyToManyField(
         Project,
         related_name='invoices'
     )

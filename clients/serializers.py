@@ -18,3 +18,9 @@ class ClientSerializer(ModelSerializer):
     class Meta:
         model = Client
         fields = '__all__'
+
+
+class InvoiceClientSerializer(ModelSerializer):
+    class Meta:
+        model = Client
+        fields = '__all__'
