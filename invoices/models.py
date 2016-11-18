@@ -5,6 +5,7 @@ from projects.models import Project
 
 
 class Invoice(models.Model):
+    name = models.CharField(max_length=500)
     client = models.ForeignKey(Client)
     project = models.ManyToManyField(
         Project,
@@ -21,10 +22,17 @@ class Invoice(models.Model):
     )
     attachments = models.FileField(
         upload_to='uploads/',
+        blank=True,
+        null=True,
     )
-    name = models.CharField(max_length=500)
-    comment = models.CharField(max_length=500)
-    terms = models.CharField(max_length=5000)
+    comment = models.CharField(
+        max_length=500,
+        blank=True,
+    )
+    terms = models.CharField(
+        max_length=5000,
+        blank=True,
+    )
 
     @property
     def total_amount(self):
