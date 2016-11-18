@@ -6,10 +6,12 @@ from model_mommy import mommy
 
 from rest_framework.test import APITestCase, APIClient
 
+User = get_user_model()
+
 
 class APITests(APITestCase):
     def setUp(self):
-        self.user = mommy.make('User')
+        self.user = mommy.make(User)
 
         sample_client_object = mommy.make(
             'Client',
