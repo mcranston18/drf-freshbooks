@@ -1,5 +1,4 @@
 gunicorn
-wsgiref
 psycopg2
 defusedxml==0.4.1
 Django==1.10.2
